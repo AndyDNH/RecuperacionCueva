@@ -1,5 +1,6 @@
 package ec.edu.uce.CuevaExamenRecuperacion.controller;
 
+import ec.edu.uce.CuevaExamenRecuperacion.model.objects.Estado;
 import ec.edu.uce.CuevaExamenRecuperacion.model.objects.Tareas;
 import ec.edu.uce.CuevaExamenRecuperacion.services.TareasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,13 @@ public class Container {
     public Tareas tareas = new Tareas();
     List<Tareas> listaTareas = new ArrayList<>();
 
-    public void crearTarea(String titulo, String descripcion, boolean estado, String fechaCreacion){
+    public void crearTarea(String titulo, String descripcion, Estado estado, String fechaCreacion){
         listaTareas.add(new Tareas(titulo, descripcion, estado, fechaCreacion));
         tareasService.save(new Tareas(titulo, descripcion, estado, fechaCreacion));
-//        return listaTareas;
 
     }
 
-    public List<Tareas> actualizarTarea(String titulo, String descripcion, boolean estado, String fechaCreacion){
+    public List<Tareas> actualizarTarea(Long id,String titulo, String descripcion, Estado estado, String fechaCreacion){
         for (Tareas tarea : listaTareas) {
             if(tarea.getTitulo().equals(titulo)){
                 tarea.setDescripcion(descripcion);
@@ -34,7 +34,7 @@ public class Container {
                 tarea.setFechaCreacion(fechaCreacion);
             }
         }
-        tareasService.buscarPorTarea(titulo, descripcion, estado, fechaCreacion);
+        tareasService.modificarPorTitulo(id, titulo, descripcion, estado, fechaCreacion);
 
 
 
@@ -42,18 +42,13 @@ public class Container {
     }
 
     public List<Tareas> listarTareas(){
-        return tareasService.ListarTareas().stream().toList();
+        listaTareas = tareasService.ListarTareas().stream().toList();
+        listaTareas.stream().forEach(System.out::println);
+        return listaTareas;
     }
 
-    public void eliminarTarea(String titulo){
-        listaTareas.removeIf(tarea -> tarea.getTitulo().equals(titulo));
-        tareasService.eliminarTarea(titulo);
+    public void eliminarTarea(Long id){
+        tareasService.eliminarTarea(id);
     }
-
-
-
-
-
-
 
 }

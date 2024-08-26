@@ -11,17 +11,26 @@ public class Tareas {
 
     String titulo;
     String descripcion;
-    boolean estado;
+    @Enumerated(EnumType.STRING)
+    Estado estado;
     String fechaCreacion;
 
     public Tareas() {
     }
 
-    public Tareas(String titulo, String descripcion, boolean estado, String fechaCreacion) {
+    public Tareas(String titulo, String descripcion, Estado estado, String fechaCreacion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -40,11 +49,11 @@ public class Tareas {
         this.descripcion = descripcion;
     }
 
-    public boolean isEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -59,10 +68,12 @@ public class Tareas {
     @Override
     public String toString() {
         return "Tareas{" +
-                "titulo='" + titulo + '\'' +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", estado=" + estado +
                 ", fechaCreacion='" + fechaCreacion + '\'' +
                 '}';
     }
 }
+
