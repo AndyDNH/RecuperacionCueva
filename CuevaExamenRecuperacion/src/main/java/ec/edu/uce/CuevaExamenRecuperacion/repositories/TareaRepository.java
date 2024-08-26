@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TareaRepository extends JpaRepository<Tareas, Long>{
 
-    @Query("SELECT s FROM Tareas s WHERE s.titulo = ?1")
+    @Query("DELETE FROM Tareas s WHERE s.titulo = ?1")
     Tareas deleteByTitulo(String titulo);
 
     @Query("SELECT s FROM Tareas s WHERE s.estado = ?1")
